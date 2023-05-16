@@ -1,18 +1,42 @@
 from gan import GAN
-from utils import load_data,show_img
+from utils import load_data,show_img,save_img
 import numpy as np
+import random
 
-#Xtr, Ytr = load_data('fashion-mnist_train.csv')
-Xtest, Ytest = load_data('line.txt')
+Xline, Yline = load_data('line.txt')
+Xtest, Ytest = load_data('MNIST_test.txt')
 X = []
-def test():
+def test_train():
     for i in range(len(Xtest)):
-        if Ytest[i] == 0:
+        if Ytest[i] == 2:
             X.append(Xtest[i])
     G = GAN(X)
-    show_img(X[0])
-    G.train(30000)
-    show_img(G.generate())
+    
+    for x in range(30):
+        G.train(1000,1)
+        ans_gen=0
+        ans_data=0
+        for i in range(20):
+            ans_gen += G.D.predict(G.generate())
+            ans_data += G.D.predict(random.choice(X))
+        print(ans_gen/20,ans_data/20,G.D.predict(Xline[0]),G.D.learning_rate,G.G.learning_rate)
+        save_img(G.generate(),'renders/render6/Iteration'+str(x))
+        G.save()
 
-test()
+def test_gen():
+    G = GAN(X)
+    G.load()
+    for i in range(10):
+        show_img(G.generate())
 
+def test_disc():
+    G = GAN(X)
+    G.load()
+    z = G.generate()
+    print(G.D.predict(z))
+    print(G.D.predict(Xtest[3]))
+    print(G.D.predict(Xline[0]))
+
+test_train()
+#test_gen()
+#test_disc()

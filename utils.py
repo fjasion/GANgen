@@ -21,6 +21,14 @@ def show_img(V):
     plt.gray()
     plt.show()
 
+def save_img(V,filename):
+    V = np.array(V)
+    for i in range(len(V)):
+        V[i] *= 255
+    plt.imshow(V.reshape((28,28)))
+    plt.gray()
+    plt.savefig(filename)
+
 def generate_line():
     for r in range(2):
         s = '0'
