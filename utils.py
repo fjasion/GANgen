@@ -20,3 +20,15 @@ def show_img(V):
     plt.imshow(V.reshape((28,28)))
     plt.gray()
     plt.show()
+
+def generate_line():
+    for r in range(2):
+        s = '0'
+        for x in range(28):
+            for y in range(28):
+                if y > 10 and y < 17:
+                    s += ',0'
+                else:
+                    s+=',255'
+        print(s)
+#generate_line()

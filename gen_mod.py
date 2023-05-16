@@ -34,11 +34,12 @@ class GeneratorLayer:
 
 
 class Generator:
-    def __init__(self, learning_rate=0.01):
+    def __init__(self, learning_rate=0.01, noise_dim=256):
         self.layers = []
-        self.layers.append(GeneratorLayer(1, 32, sgmd, dsgmd, learning_rate))
-        self.layers.append(GeneratorLayer(32, 64, sgmd, dsgmd, learning_rate))
-        self.layers.append(GeneratorLayer(64, 784, sgmd, dsgmd, learning_rate))
+        self.noise_dim = noise_dim
+        self.layers.append(GeneratorLayer(1, noise_dim, sgmd, dsgmd, learning_rate))
+        self.layers.append(GeneratorLayer(noise_dim, 512, sgmd, dsgmd, learning_rate))
+        self.layers.append(GeneratorLayer(512, 784, sgmd, dsgmd, learning_rate))
 
     def generate(self, Z):
         self.layers[0].A = np.array(Z)
@@ -55,7 +56,7 @@ class Generator:
         z = self.generate(Z)
         d = D.predict(z)
         ans = -1/(1.01-d)
-        D.backprop(z,0,False)
+        D.backprop(z,0,True)
         ans = ans * np.array(D.layers[0].dA)
         return ans
 
