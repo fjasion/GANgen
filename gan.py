@@ -7,22 +7,34 @@ from utils import show_img
 class GAN:
     def __init__(self,data,noise_dim=512):
         self.noise_dim = noise_dim
-        self.D = Discriminator(0.001)
-        self.G = Generator(0.01,noise_dim)
+        self.D = Discriminator(0.03)
+        self.G = Generator(0.3,noise_dim)
         self.data = data
     
-    def train(self,iters = 100, K = 1):
+    def train(self,iters = 100, K = 1, lr_mod=1):
+        self.D.learning_rate *= lr_mod
+        self.G.learning_rate *= lr_mod
         for it in range(iters):
-            #if it % 100 == 0:
-                #ans_gen = 0
-                #ans_data = 0
+            if it % 100 == 0:
+                ans_gen = 0
+                ans_data = 0
                 #loss = 0
-                #for i in range(20):
-                    #pg = self.D.predict(self.generate())
-                    #pd = self.D.predict(random.choice(self.data))
+                for i in range(20):
+                    pg = self.D.predict(self.generate())
+                    pd = self.D.predict(random.choice(self.data))
                     #loss += np.log(pd) + np.log(1-pg)
-                    #ans_gen += pg+0.05
-                    #ans_data += pd
+                    ans_gen += pg#+0.05
+                    ans_data += pd
+                ans_gen /= 20
+                ans_data /= 20
+
+                if(ans_data > 0.8):
+                    K = 0
+                if(ans_data < 0.5):
+                    K = 1
+                if(ans_gen > ans_data):
+                    K = 2
+
                 #print(loss/20)
                 #ans = ans_gen-ans_data
                 #ans /= 20
