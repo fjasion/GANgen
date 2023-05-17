@@ -8,7 +8,7 @@ Xtest, Ytest = load_data('MNIST_test.txt')
 X = []
 def test_train():
     for i in range(len(Xtest)):
-        if Ytest[i] == 2:
+        #if Ytest[i] == 7:
             X.append(Xtest[i])
     G = GAN(X)
     
@@ -20,7 +20,7 @@ def test_train():
             ans_gen += G.D.predict(G.generate())
             ans_data += G.D.predict(random.choice(X))
         print(ans_gen/20,ans_data/20,G.D.predict(Xline[0]),G.D.learning_rate,G.G.learning_rate)
-        save_img(G.generate(),'renders/render6/Iteration'+str(x))
+        save_img(G.generate(),'renders/render10/Iteration'+str(x))
         G.save()
 
 def test_gen():

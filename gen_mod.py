@@ -38,8 +38,8 @@ class Generator:
         self.learning_rate = learning_rate
         self.layers.append(GeneratorLayer(1, noise_dim, sgmd, dsgmd))
         self.layers.append(GeneratorLayer(noise_dim, 784, sgmd, dsgmd))
-        #self.layers.append(GeneratorLayer(256, 512, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(784, 784, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(1024, 1024, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(1024, 784, sgmd, dsgmd))
 
     def generate(self, Z):
         self.layers[0].A = np.array(Z)
