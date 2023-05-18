@@ -8,7 +8,7 @@ class GAN:
     def __init__(self,data,noise_dim=512):
         self.noise_dim = noise_dim
         self.D = Discriminator(0.02)
-        self.G = Generator(0.15,noise_dim)
+        self.G = Generator(0.12,noise_dim)
         self.data = data
     
     def train(self,iters = 100, K = 1, lr_mod=0):
