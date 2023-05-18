@@ -37,7 +37,7 @@ class Generator:
         self.noise_dim = noise_dim
         self.learning_rate = learning_rate
         self.layers.append(GeneratorLayer(1, noise_dim, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(noise_dim, 784, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(noise_dim, 1024, sgmd, dsgmd))
         self.layers.append(GeneratorLayer(1024, 1024, sgmd, dsgmd))
         self.layers.append(GeneratorLayer(1024, 784, sgmd, dsgmd))
 
