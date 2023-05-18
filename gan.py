@@ -7,13 +7,14 @@ from utils import show_img
 class GAN:
     def __init__(self,data,noise_dim=512):
         self.noise_dim = noise_dim
-        self.D = Discriminator(0.03)
-        self.G = Generator(0.3,noise_dim)
+        self.D = Discriminator(0.02)
+        self.G = Generator(0.15,noise_dim)
         self.data = data
     
-    def train(self,iters = 100, K = 1, lr_mod=1):
-        self.D.learning_rate *= lr_mod
-        self.G.learning_rate *= lr_mod
+    def train(self,iters = 100, K = 1, lr_mod=0):
+        #self.D.learning_rate *= lr_mod
+        self.G.learning_rate -= lr_mod
+        self.G.learning_rate = max(self.G.learning_rate,0.02)
         for it in range(iters):
             if it % 100 == 0:
                 ans_gen = 0
@@ -28,12 +29,12 @@ class GAN:
                 ans_gen /= 20
                 ans_data /= 20
 
-                if(ans_data > 0.8):
+                if(ans_data > 0.9 or ans_data-ans_gen > 0.3):
                     K = 0
-                if(ans_data < 0.5):
+                if(ans_data-ans_gen < 0.4):
                     K = 1
                 if(ans_gen > ans_data):
-                    K = 2
+                    K = 3
 
                 #print(loss/20)
                 #ans = ans_gen-ans_data
