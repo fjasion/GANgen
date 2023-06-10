@@ -1,6 +1,7 @@
 import numpy as np
 from activantions import *
 
+
 class GeneratorLayer:
     def __init__(self, prev_size, curr_size, act_f, act_f_der):
         self.W = np.array(np.random.normal(0, 0.1, size=(curr_size, prev_size)))
@@ -22,7 +23,7 @@ class GeneratorLayer:
         self.Z = np.dot(self.W, prev_layer.A) + self.B
         self.A = self.act_f(self.Z)
 
-    def backprop(self, prev_layer,learning_rate):
+    def backprop(self, prev_layer, learning_rate):
         self.dZ = self.act_f_der(self.Z)
         self.dB = self.dA*self.dZ
         self.dW = np.outer(self.dB, prev_layer.A)
@@ -48,19 +49,18 @@ class Generator:
         return self.layers[-1].A
 
     def backprop(self, Z, D):
-        self.layers[-1].dA = self.dLoss(Z,D)
+        self.layers[-1].dA = self.dLoss(Z, D)
         for i in range(len(self.layers)-1, 0, -1):
-            self.layers[i].backprop(self.layers[i-1],self.learning_rate)
-    
-    def dLoss(self,Z,D):
+            self.layers[i].backprop(self.layers[i-1], self.learning_rate)
+
+    def dLoss(self, Z, D):
         z = self.generate(Z)
         d = D.predict(z)
         ans = -1/(1.01-d)
-        D.backprop(z,0,True)
+        D.backprop(z, 0, True)
         ans = ans * np.array(D.layers[0].dA)
         return ans
 
-    
     def save(self, filename):
         f = open(filename, 'w')
         for layer in self.layers:

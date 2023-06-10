@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def load_data(filename):
     X = []
     Y = []
@@ -13,21 +14,24 @@ def load_data(filename):
             X.append([int(x)/255 for x in l[1:]])
     return X, Y
 
+
 def show_img(V):
     V = np.array(V)
     for i in range(len(V)):
         V[i] *= 255
-    plt.imshow(V.reshape((28,28)))
+    plt.imshow(V.reshape((28, 28)))
     plt.gray()
     plt.show()
 
-def save_img(V,filename):
+
+def save_img(V, filename):
     V = np.array(V)
     for i in range(len(V)):
         V[i] *= 255
-    plt.imshow(V.reshape((28,28)))
+    plt.imshow(V.reshape((28, 28)))
     plt.gray()
     plt.savefig(filename)
+
 
 def generate_line():
     for r in range(2):
@@ -37,6 +41,6 @@ def generate_line():
                 if y > 10 and y < 17:
                     s += ',0'
                 else:
-                    s+=',255'
+                    s += ',255'
         print(s)
-#generate_line()
+# generate_line()

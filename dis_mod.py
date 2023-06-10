@@ -1,6 +1,7 @@
 import numpy as np
 from activantions import *
 
+
 class DiscriminatorLayer:
     def __init__(self, prev_size, curr_size, act_f, act_f_der):
         self.W = np.array(np.random.normal(0, 0.1, size=(curr_size, prev_size)))
@@ -54,18 +55,17 @@ class Discriminator:
             return 0
         return 1
 
-    def backprop(self, X, expected,update=True):
+    def backprop(self, X, expected, update=True):
         self.layers[-1].dA = self.dLoss(self.predict(X), expected)
         for i in range(len(self.layers)-1, 0, -1):
-            self.layers[i].backprop(self.layers[i-1],self.learning_rate,update)
-    
-    def dLoss(self,A, expected):
-        if expected == 1: #input is real
+            self.layers[i].backprop(self.layers[i-1], self.learning_rate, update)
+
+    def dLoss(self, A, expected):
+        if expected == 1:  # input is real
             return 1+(-1/(A+0.01))
-        else: #input is fake
+        else:  # input is fake
             return 1/(1.01-A) - 1
 
-    
     def save(self, filename):
         f = open(filename, 'w')
         for layer in self.layers:
