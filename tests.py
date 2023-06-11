@@ -14,7 +14,13 @@ def test_train():
     for i in range(len(Xtest)):
         if Ytest[i] == 9:
             X.append(Xtest[i])
-    G = GAN(X, gen_layer_sizes=[512, 1024, 1024, 784])
+    G = GAN(
+        X,
+        gen_layer_sizes=[512, 1024, 1024],
+        gen_learning_rate=0.12,
+        dis_layer_sizes=[256, 128],
+        dis_learning_rate=0.02
+    )
 
     for x in range(1):
         G.train(1000, lr_mod=0.01)
@@ -43,6 +49,7 @@ def test_disc():
     print(G.D.predict(Xtest[3]))
     print(G.D.predict(Xline[0]))
 
+
 def setup():
     np.random.seed(config.SEED)
     random.seed(config.SEED)
@@ -52,6 +59,7 @@ def main():
     test_train()
     # test_gen()
     # test_disc()
+
 
 if __name__ == '__main__':
     setup()

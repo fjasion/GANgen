@@ -24,7 +24,6 @@ class DiscriminatorLayer:
         self.A = self.act_f(self.Z)
 
     def backprop(self, prev_layer, learning_rate, update=True):
-
         self.dZ = self.act_f_der(self.Z)
         self.dB = self.dA*self.dZ
         self.dW = np.outer(self.dB, prev_layer.A)
@@ -36,13 +35,11 @@ class DiscriminatorLayer:
 
 
 class Discriminator:
-    def __init__(self, learning_rate=0.01):
+    def __init__(self, layer_sizes, learning_rate=0.01):
         self.learning_rate = learning_rate
         self.layers = []
-        self.layers.append(DiscriminatorLayer(1, 784, sgmd, dsgmd))
-        self.layers.append(DiscriminatorLayer(784, 256, sgmd, dsgmd))
-        self.layers.append(DiscriminatorLayer(256, 128, sgmd, dsgmd))
-        self.layers.append(DiscriminatorLayer(128, 1, sgmd, dsgmd))
+        for prev_size, curr_size in zip([1] + layer_sizes, layer_sizes + [1]):
+            self.layers.append(DiscriminatorLayer(prev_size, curr_size, sgmd, dsgmd))
 
     def predict(self, X):
         self.layers[0].A = np.array(X)
