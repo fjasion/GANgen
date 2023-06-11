@@ -2,6 +2,8 @@
 *.csv
 *.weights
 *.zip
+*.err
+*.out
 *-ubyte
 renders/
 __pycache__/
