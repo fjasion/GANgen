@@ -3,8 +3,8 @@ from utils import load_data, show_img, save_img
 import numpy as np
 import random
 
-Xline, Yline = load_data('line.txt')
-Xtest, Ytest = load_data('fashion-mnist_test.csv')
+Xline, Yline = load_data('line.csv')
+Xtest, Ytest = load_data('fashion_mnist_test.csv')
 X = []
 
 
@@ -14,7 +14,7 @@ def test_train():
             X.append(Xtest[i])
     G = GAN(X)
 
-    for x in range(3):
+    for x in range(1):
         G.train(1000, lr_mod=0.01)
         ans_gen = 0
         ans_data = 0

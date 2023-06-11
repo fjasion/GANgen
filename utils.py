@@ -3,12 +3,17 @@ import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+import config
+
+def data_path(filename):
+    return config.DATA_DIRECTORY + '/' + filename
+
 
 def load_data(filename):
     X = []
     Y = []
 
-    with open(filename, 'r') as f:
+    with open(data_path(filename), 'r') as f:
         for line in f:
             l = line.split(',')
             temp = int(l[0])
