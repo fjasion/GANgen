@@ -6,10 +6,10 @@ from utils import show_img
 
 
 class GAN:
-    def __init__(self, data, noise_dim=512):
-        self.noise_dim = noise_dim
+    def __init__(self, data, gen_layer_sizes):
+        self.noise_dim = gen_layer_sizes[0]
         self.D = Discriminator(0.02)
-        self.G = Generator(0.12, noise_dim)
+        self.G = Generator(gen_layer_sizes, learning_rate=0.12)
         self.data = data
 
     def train(self, iters=100, K=1, lr_mod=0):

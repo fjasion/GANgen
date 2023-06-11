@@ -33,14 +33,11 @@ class GeneratorLayer:
 
 
 class Generator:
-    def __init__(self, learning_rate=0.01, noise_dim=256):
+    def __init__(self, layer_sizes, learning_rate=0.01):
         self.layers = []
-        self.noise_dim = noise_dim
         self.learning_rate = learning_rate
-        self.layers.append(GeneratorLayer(1, noise_dim, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(noise_dim, 1024, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(1024, 1024, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(1024, 784, sgmd, dsgmd))
+        for prev_size, curr_size in zip([1] + layer_sizes, layer_sizes):
+            self.layers.append(GeneratorLayer(prev_size, curr_size, sgmd, dsgmd))
 
     def generate(self, Z):
         self.layers[0].A = np.array(Z)
