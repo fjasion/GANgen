@@ -1,6 +1,8 @@
 import numpy as np
 from activations import *
 
+import utils
+
 
 class DiscriminatorLayer:
     def __init__(self, prev_size, curr_size, act_f, act_f_der):
@@ -63,7 +65,9 @@ class Discriminator:
         else:  # input is fake
             return 1/(1.01-A) - 1
 
-    def save(self, filename):
+    def save(self, directory):
+        utils.ensure_directory(directory)
+        filename = directory + '/' + 'dis.weights'
         f = open(filename, 'w')
         for layer in self.layers:
             f.write(' '.join([str(x) for row in layer.W for x in row])+'\n')

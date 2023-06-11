@@ -1,6 +1,8 @@
 import numpy as np
 from activations import *
 
+import utils
+
 
 class GeneratorLayer:
     def __init__(self, prev_size, curr_size, act_f, act_f_der):
@@ -58,7 +60,9 @@ class Generator:
         ans = ans * np.array(D.layers[0].dA)
         return ans
 
-    def save(self, filename):
+    def save(self, directory):
+        filename = directory + '/' + 'gen.weights'
+        utils.ensure_directory(directory)
         f = open(filename, 'w')
         for layer in self.layers:
             f.write(' '.join([str(x) for row in layer.W for x in row])+'\n')

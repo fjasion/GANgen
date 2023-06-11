@@ -57,9 +57,9 @@ class GAN:
     def generate(self):
         return self.G.generate(np.random.normal(size=self.noise_dim))
 
-    def save(self, gen_filename='gen.weights', discrim_filename='discrim.weights'):
-        self.G.save(gen_filename)
-        self.D.save(discrim_filename)
+    def save(self, directory):
+        self.G.save(directory)
+        self.D.save(directory)
 
     def load(self, gen_filename='gen.weights', discrim_filename='discrim.weights'):
         self.G.load(gen_filename)
