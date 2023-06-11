@@ -14,7 +14,7 @@ def test_train():
             X.append(Xtest[i])
     G = GAN(X)
 
-    for x in range(30):
+    for x in range(3):
         G.train(1000, lr_mod=0.01)
         ans_gen = 0
         ans_data = 0
@@ -22,7 +22,7 @@ def test_train():
             ans_gen += G.D.predict(G.generate())
             ans_data += G.D.predict(random.choice(X))
         print(ans_gen/20, ans_data/20, G.D.predict(Xline[0]), G.D.learning_rate, G.G.learning_rate)
-        save_img(G.generate(), 'renders/render14/Iteration'+str(x))
+        save_img(G.generate(), 'renders/render14', 'Iteration'+str(x))
         G.save()
 
 

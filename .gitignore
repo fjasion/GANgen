@@ -1,3 +1,7 @@
-MNIST_train.txt
-fashion-mnist_test.csv
-renders/*
+*.txt
+*.csv
+*.weights
+*.zip
+*-ubyte
+renders/
+__pycache__/

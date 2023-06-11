@@ -1,3 +1,5 @@
+import pathlib
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -24,13 +26,14 @@ def show_img(V):
     plt.show()
 
 
-def save_img(V, filename):
+def save_img(V, directory, filename):
     V = np.array(V)
     for i in range(len(V)):
         V[i] *= 255
     plt.imshow(V.reshape((28, 28)))
     plt.gray()
-    plt.savefig(filename)
+    pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
+    plt.savefig(f'{directory}/{filename}')
 
 
 def generate_line():
