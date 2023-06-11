@@ -3,6 +3,8 @@ from utils import load_data, show_img, save_img
 import numpy as np
 import random
 
+import config
+
 Xline, Yline = load_data('line.csv')
 Xtest, Ytest = load_data('fashion_mnist_test.csv')
 X = []
@@ -41,7 +43,16 @@ def test_disc():
     print(G.D.predict(Xtest[3]))
     print(G.D.predict(Xline[0]))
 
+def setup():
+    np.random.seed(config.SEED)
+    random.seed(config.SEED)
 
-test_train()
-# test_gen()
-# test_disc()
+
+def main():
+    test_train()
+    # test_gen()
+    # test_disc()
+
+if __name__ == '__main__':
+    setup()
+    main()
