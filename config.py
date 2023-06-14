@@ -1,0 +1,3 @@
+DATA_DIRECTORY = 'data'
+
+SEED = 42
