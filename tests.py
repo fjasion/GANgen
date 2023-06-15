@@ -39,6 +39,8 @@ def test_with_dataset(x, y, labels):
         try:
             print(f'    testing {labels} with discriminator with {i} hidden layers')
             log_time(lambda: test_with_discriminator(dataset, labels, i), f'discriminator {i}', 2)
+        except KeyboardInterrupt:
+            raise KeyboardInterrupt
         except:
             print('      This test has failed')
             print('      Probably numpy decided to give up')

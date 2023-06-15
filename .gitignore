@@ -1,4 +1,6 @@
 MNIST_train.txt
 fashion-mnist_test.csv
 renders/*
+*.zip
 __pycache__/
+data/
