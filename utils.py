@@ -21,10 +21,13 @@ def show_img(V):
     plt.gray()
     plt.show()
 
-def save_img(V,filename):
+def save_img(V,filename, iteration):
     V = np.array(V)
     for i in range(len(V)):
         V[i] *= 255
+    plt.clf()
+    plt.suptitle('iteration')
+    plt.title(str(iteration).zfill(3))
     plt.imshow(V.reshape((28,28)))
     plt.gray()
     plt.savefig(filename)

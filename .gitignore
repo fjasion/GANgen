@@ -2,3 +2,8 @@ MNIST_train.txt
 fashion-mnist_test.csv
 __pycache__/
 renders/
+*.csv
+*.log
+*.err
+*.out
+

@@ -5,7 +5,7 @@ import random
 from pathlib import Path
 
 Xline, Yline = load_data('line.txt')
-Xtest, Ytest = load_data('MNIST_test.txt')
+Xtest, Ytest = load_data('fashion_mnist_test.csv')
 
 
 def test_train(relevant):
@@ -23,9 +23,10 @@ def test_train(relevant):
             ans_gen += G.D.predict(G.generate())
             ans_data += G.D.predict(random.choice(X))
         print(ans_gen/20, ans_data/20, G.D.predict(Xline[0]), G.D.learning_rate, G.G.learning_rate)
-        dir_path = 'renders/render4'
+        rel_rep = '_'.join(map(str, relevant))
+        dir_path = 'renders/' + rel_rep
         Path(dir_path).mkdir(parents=True, exist_ok=True)
-        save_img(G.generate(), dir_path + '/Iteration'+str(x).zfill(2))
+        save_img(G.generate(), dir_path + '/Iteration'+str(x).zfill(2), x)
         G.save()
 
 
