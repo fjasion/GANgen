@@ -63,7 +63,8 @@ class Generator:
     def loss_der(self, Z, D):
         z = self.generate(Z)
         d = D.predict(z)
-        ans = -1 / (1.01 - d)
+        #ans = -1 / (1.01 - d)
+        ans = d
         D.backprop(z, 0, True)
         ans = ans * np.array(D.layers[0].activated_der)
         return ans

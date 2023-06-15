@@ -18,6 +18,7 @@ class GAN:
         self.G.learning_rate -= lr_mod
         self.G.learning_rate = max(self.G.learning_rate, 0.02)
         for it in range(iters):
+            print(it)
             if it % 100 == 0:
                 ans_gen = 0
                 ans_data = 0

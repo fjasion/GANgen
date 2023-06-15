@@ -22,7 +22,7 @@ def test_with_discriminator(dataset, labels, num_inner):
         dis_learning_rate=0.02
     )
     for x in range(15):
-        G.train(1000, lr_mod=0.01)
+        G.train(100, lr_mod=0.01)
         ans_gen = 0
         ans_data = 0
         for _ in range(20):
@@ -30,7 +30,7 @@ def test_with_discriminator(dataset, labels, num_inner):
             ans_data += G.D.predict(random.choice(dataset))
         print('     ', ans_gen/20, ans_data/20, G.D.learning_rate, G.G.learning_rate)
         label_description = 'labels_' + '_'.join(map(str, labels))
-        save_img(G.generate(), f'renders/render_{label_description}_inner_{num_inner}', 'iteration'+str(x))
+        save_img(G.generate(), f'renders/unsafe/render_{label_description}_inner_{num_inner}', 'iteration'+str(x))
 
 
 def test_with_dataset(x, y, labels):

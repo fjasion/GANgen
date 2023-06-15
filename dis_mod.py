@@ -61,11 +61,17 @@ class Discriminator:
         for i in range(len(self.layers) - 1, 0, -1):
             self.layers[i].backprop(self.layers[i - 1], self.learning_rate, update)
 
+    # def loss_der(self, A, expected):
+    #     if expected == 1:  # input is real
+    #         return 1 + (-1 / (A + 0.01))
+    #     else:  # input is fake
+    #         return 1 / (1.01 - A) - 1
+
     def loss_der(self, A, expected):
-        if expected == 1:  # input is real
-            return 1 + (-1 / (A + 0.01))
-        else:  # input is fake
-            return 1 / (1.01 - A) - 1
+        if expected == 1:
+            return A
+        else:
+            return -A
 
     def save(self, directory):
         utils.ensure_directory(directory)
