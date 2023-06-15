@@ -56,19 +56,17 @@ class Discriminator:
 
     def backprop(self, X, expected,update=True):
         x = self.predict(X)
-        if(update):
-            print(x,expected,expected-x)
         self.layers[-1].dA = self.dLoss(x, expected)
         for i in range(len(self.layers)-1, 0, -1):
             self.layers[i].backprop(self.layers[i-1],self.learning_rate,update)
     
     def dLoss(self,A, expected):
         if expected == 1: #input is real
-            #return 1+(-1/(A+0.01))
-            return A-1
+            return 1+(-1/(A+0.01))
+            #return A-1
         else: #input is fake
-            #return 1/(1.01-A) - 1
-            return A
+            return 1/(1.01-A) - 1
+            #return A
 
     
     def save(self, filename):

@@ -34,7 +34,6 @@ class GAN:
                 #if(ans_data < 0.4 or ans_gen > 0.6):
                 #    K += 3
                 #if(ans_gen < 0.2):
-                #    K = 0
                 if(ans_data > 0.9 or ans_data-ans_gen > 0.3):
                     K = 0
                 if(ans_data-ans_gen < 0.4):
@@ -43,6 +42,7 @@ class GAN:
                     K = 3
                 if(ans_data < 0.3):
                     K = 5
+                K = 1
                 #print(loss/20)
                 #ans = ans_gen-ans_data
                 #ans /= 20
