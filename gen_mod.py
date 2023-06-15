@@ -1,4 +1,4 @@
-from activantions import *
+from activations import *
 
 
 class GeneratorLayer:

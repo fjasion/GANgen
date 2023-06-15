@@ -1,5 +1,5 @@
 import numpy as np
-from activantions import *
+from activations import *
 
 
 class DiscriminatorLayer:
