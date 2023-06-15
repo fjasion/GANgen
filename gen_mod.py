@@ -37,9 +37,9 @@ class Generator:
         self.noise_dim = noise_dim
         self.learning_rate = learning_rate
         self.layers.append(GeneratorLayer(1, noise_dim, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(noise_dim, 1024, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(1024, 1024, sgmd, dsgmd))
-        self.layers.append(GeneratorLayer(1024, 784, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(noise_dim, 512, sgmd, dsgmd))
+        #self.layers.append(GeneratorLayer(1024, 1024, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(512, 784, sgmd, dsgmd))
 
     def generate(self, Z):
         self.layers[0].A = np.array(Z)
@@ -56,7 +56,9 @@ class Generator:
         z = self.generate(Z)
         d = D.predict(z)
         ans = -1/(1.01-d)
-        D.backprop(z,0,True)
+        #ans = d
+        #ans = d-1
+        D.backprop(z,0,False)
         ans = ans * np.array(D.layers[0].dA)
         return ans
 

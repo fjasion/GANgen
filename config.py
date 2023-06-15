@@ -1,0 +1,1 @@
+NOISE_SCALE = 0.1

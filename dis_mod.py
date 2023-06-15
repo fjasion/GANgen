@@ -39,9 +39,9 @@ class Discriminator:
         self.learning_rate = learning_rate
         self.layers = []
         self.layers.append(DiscriminatorLayer(1, 784, sgmd, dsgmd))
-        self.layers.append(DiscriminatorLayer(784, 256, sgmd, dsgmd))
-        self.layers.append(DiscriminatorLayer(256, 128, sgmd, dsgmd))
-        self.layers.append(DiscriminatorLayer(128, 1, sgmd, dsgmd))
+        self.layers.append(DiscriminatorLayer(784, 128, sgmd, dsgmd))
+        self.layers.append(DiscriminatorLayer(128, 64, sgmd, dsgmd))
+        self.layers.append(DiscriminatorLayer(64, 1, sgmd, dsgmd))
 
     def predict(self, X):
         self.layers[0].A = np.array(X)
@@ -55,15 +55,20 @@ class Discriminator:
         return 1
 
     def backprop(self, X, expected,update=True):
-        self.layers[-1].dA = self.dLoss(self.predict(X), expected)
+        x = self.predict(X)
+        if(update):
+            print(x,expected,expected-x)
+        self.layers[-1].dA = self.dLoss(x, expected)
         for i in range(len(self.layers)-1, 0, -1):
             self.layers[i].backprop(self.layers[i-1],self.learning_rate,update)
     
     def dLoss(self,A, expected):
         if expected == 1: #input is real
-            return 1+(-1/(A+0.01))
+            #return 1+(-1/(A+0.01))
+            return A-1
         else: #input is fake
-            return 1/(1.01-A) - 1
+            #return 1/(1.01-A) - 1
+            return A
 
     
     def save(self, filename):
