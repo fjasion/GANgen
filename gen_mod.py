@@ -37,18 +37,18 @@ class Generator:
         self.layers = []
         self.noise_dim = noise_dim
         self.learning_rate = learning_rate
-#        self.layers.append(GeneratorLayer(1, noise_dim, sgmd, dsgmd))
-#        self.layers.append(GeneratorLayer(noise_dim, 512, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(1, noise_dim, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(noise_dim, 512, sgmd, dsgmd))
         # self.layers.append(GeneratorLayer(1024, 1024, sgmd, dsgmd))
-#        self.layers.append(GeneratorLayer(512, 784, sgmd, dsgmd))
+        self.layers.append(GeneratorLayer(512, 784, sgmd, dsgmd))
 
         # self.layers.append(GeneratorLayer(1, noise_dim, relu, der_relu))
         # self.layers.append(GeneratorLayer(noise_dim, 512, relu, der_relu))
         # self.layers.append(GeneratorLayer(512, 784, tanh, der_tanh))
 
-        self.layers.append(GeneratorLayer(1, noise_dim, leaky_relu, der_leaky_relu))
-        self.layers.append(GeneratorLayer(noise_dim, 512, leaky_relu, der_leaky_relu))
-        self.layers.append(GeneratorLayer(512, 784, tanh, der_tanh))
+        # self.layers.append(GeneratorLayer(1, noise_dim, leaky_relu, der_leaky_relu))
+        # self.layers.append(GeneratorLayer(noise_dim, 512, leaky_relu, der_leaky_relu))
+        # self.layers.append(GeneratorLayer(512, 784, tanh, der_tanh))
 
     def generate(self, Z):
         self.layers[0].A = np.array(Z)

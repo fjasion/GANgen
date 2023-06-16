@@ -15,7 +15,8 @@ class GAN:
 
     def train(self, iters=100, K=1, lr_mod=0):
         # self.D.learning_rate *= lr_mod
-        # self.G.learning_rate -= lr_mod
+        self.G.learning_rate -= 0.1 / 30
+        self.G.learning_rate = max(self.G.learning_rate, 0)
         # self.G.learning_rate = max(self.G.learning_rate,0.02)
         for it in range(iters):
             if it % 100 == 0:
